@@ -84,6 +84,7 @@ Say "setup omc" or run `/oh-my-claudecode:omc-setup`.
 
 <!-- OMC:END -->
 
+<!-- User customizations -->
 <!-- CUSTOM:START -->
 <!-- 아래에 프로젝트별 규칙, 에이전트 가이드, 제약사항 등을 자유롭게 추가하세요 -->
 <!-- 이 영역은 OMC 업데이트 시에도 유지됩니다 -->
