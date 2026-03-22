@@ -45,6 +45,26 @@ Claude Code 실행 후:
 
 OMC 플러그인 업데이트 후에는 `/omc-setup`을 실행해서 CLAUDE.md를 갱신한다.
 
+## 공유 스킬
+
+### autoresearch
+
+Andrej Karpathy의 autoresearch 방법론을 Claude Code 스킬에 적용한 자동 최적화 스킬. 기존 스킬을 반복 실행하고, binary eval(합/불) 기준으로 채점한 뒤, 프롬프트를 변이시켜 점수가 오르는 변이만 유지하는 자율 실험 루프를 돌린다.
+
+**사용법:** `/autoresearch` 또는 "optimize this skill", "run autoresearch on" 등의 키워드로 트리거
+
+**흐름:**
+1. 대상 스킬, 테스트 입력, eval 기준 등 컨텍스트 수집
+2. 원본 스킬을 그대로 실행하여 베이스라인 점수 측정
+3. 실패 패턴 분석 → 가설 수립 → 프롬프트 1가지 변이 → 재실행 → 채점 → 유지/폐기 판정
+4. 점수 천장 도달 또는 수동 중단까지 자율 반복
+
+**산출물:**
+- `[user-chosen-name].md` — 최적화된 스킬 (원본 SKILL.md는 변경하지 않음)
+- `dashboard.html` — 실시간 브라우저 대시보드
+- `results.tsv` / `results.json` — 실험별 점수 로그
+- `changelog.md` — 모든 변이 시도 기록
+
 ## Git 관리
 
 `.gitignore`에 의해 다음은 추적되지 않는다:
