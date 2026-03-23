@@ -87,7 +87,7 @@ gh issue view 번호 --json number,title,body,state,labels,assignees,comments,cr
 
 #### close
 ```bash
-gh issue close 번호 [--reason "completed"|"not_planned"] [--comment "닫는 이유"]
+gh issue close 번호 [--reason "completed"|"not planned"|"duplicate"] [--comment "닫는 이유"]
 ```
 - 닫는 이유가 제공되면 코멘트로 남깁니다
 - 닫기 전 이슈 제목을 확인하여 사용자에게 보여줍니다
