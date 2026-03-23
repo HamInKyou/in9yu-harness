@@ -57,8 +57,11 @@ GitHub Projects v2를 자연어로 관리하는 스킬입니다. 사용자는 `g
 #### create
 ```bash
 gh project create --owner @me --title "프로젝트명"
+gh project link 프로젝트번호 --owner OWNER --repo REPO
 ```
 - 자연어에서 프로젝트 제목을 추출합니다
+- 생성 후 **현재 레포에 자동 링크**합니다
+- 링크 시 `--owner`에는 `@me`가 아닌 실제 유저명(컨텍스트의 레포 owner)을 사용합니다
 - 생성 후 프로젝트 번호와 URL을 표시합니다
 
 #### view
