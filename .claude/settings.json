@@ -1,8 +1,16 @@
 {
-  "enabledPlugins": {
-    "oh-my-claudecode@omc": true
-  },
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "enabledPlugins": {
+    "oh-my-claudecode@omc": true,
+    "pm-product-discovery@pm-skills": true,
+    "pm-product-strategy@pm-skills": true,
+    "pm-execution@pm-skills": true,
+    "pm-market-research@pm-skills": true,
+    "pm-data-analytics@pm-skills": true,
+    "pm-go-to-market@pm-skills": true,
+    "pm-marketing-growth@pm-skills": true,
+    "pm-toolkit@pm-skills": true
   }
 }
