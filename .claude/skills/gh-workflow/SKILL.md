@@ -4,7 +4,6 @@ description: >
   이슈 기반 개발 워크플로우를 자동화합니다. 이슈 확인→브랜치 생성→작업→커밋→PR 생성까지 원스톱으로 처리합니다.
   Use when: workflow, 워크플로우, 작업 시작, start work, 이슈 작업, 브랜치, branch, PR 만들어
 argument-hint: "[issue-number] [options]"
-disable-model-invocation: true
 allowed-tools: Bash(gh *), Bash(git *)
 ---
 
