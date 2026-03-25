@@ -105,12 +105,17 @@ agent-browser --session-name pinterest snapshot -i
 # grep "저장할 보드 선택" → ref 추출
 agent-browser --session-name pinterest click @eN
 
-# 4. 보드 목록에서 대상 보드의 "저장" 버튼 클릭
+# 4. 보드 검색창에 보드 이름 입력 → 검색 결과에서 보드 행 클릭
 agent-browser --session-name pinterest wait 1000
 agent-browser --session-name pinterest snapshot -i
-# grep -A1 "보드이름" | grep "저장" → ref 추출
+# grep "보드에서 검색" → searchbox ref 추출
+agent-browser --session-name pinterest fill @eN "보드이름"
+agent-browser --session-name pinterest wait 1000
+agent-browser --session-name pinterest snapshot -i
+# grep "보드이름 저장" → 보드 행 ref 추출 (내부 "저장" 버튼이 아닌 행 자체)
 agent-browser --session-name pinterest click @eN
 agent-browser --session-name pinterest wait 1500
+# "핀이 저장됨" 버튼이 나타나면 성공
 
 # 5. 검색 결과로 돌아가기
 agent-browser --session-name pinterest back
@@ -122,7 +127,8 @@ agent-browser --session-name pinterest wait 1500
 **주의사항:**
 - `back` 후에는 모든 ref가 무효화됨 — 반드시 `snapshot -i`로 새 ref 획득
 - 핀 인덱스는 매번 스냅샷에서 동적으로 추출해야 함
-- 이미 저장한 핀은 Pinterest가 "저장됨" 표시하므로 중복 감지 가능
+- 이미 저장한 핀은 Pinterest가 "핀이 저장됨" 표시하므로 중복 감지 가능
+- **보드 선택 시 반드시 검색창에 보드 이름을 입력하여 검색 후 보드 행을 클릭해야 함** — 내부 "저장" 버튼만 클릭하면 저장되지 않음
 
 ### 플로우 3: 검색어 입력 (URL 대신 검색창 사용)
 
