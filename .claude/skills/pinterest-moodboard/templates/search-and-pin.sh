@@ -1,7 +1,9 @@
 #!/bin/bash
-# Pinterest 검색 & 핀 저장 템플릿
-# 사용법: ./search-and-pin.sh "검색키워드" "보드이름" [핀수]
+# Pinterest 검색 & 핀 저장 — 참조용 템플릿 (의사코드)
+# 직접 실행 불가: @eN ref는 매번 snapshot에서 동적으로 추출해야 합니다.
+# SKILL.md의 워크플로우 가이드에 따라 Claude가 명령을 조합하여 실행합니다.
 #
+# 사용법 (참조): ./search-and-pin.sh "검색키워드" "보드이름" [핀수]
 # 사전 조건: Pinterest 로그인 세션 + 대상 보드가 존재해야 합니다
 
 set -euo pipefail

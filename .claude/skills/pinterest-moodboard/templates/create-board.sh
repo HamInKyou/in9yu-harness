@@ -1,9 +1,10 @@
 #!/bin/bash
-# Pinterest 보드 생성 템플릿
-# 사용법: ./create-board.sh "보드이름"
+# Pinterest 보드 생성 — 참조용 템플릿 (의사코드)
+# 직접 실행 불가: @eN ref는 매번 snapshot에서 동적으로 추출해야 합니다.
+# SKILL.md의 워크플로우 가이드에 따라 Claude가 명령을 조합하여 실행합니다.
 #
+# 사용법 (참조): ./create-board.sh "보드이름"
 # 사전 조건: Pinterest 로그인 세션이 설정되어 있어야 합니다
-#   agent-browser --session-name pinterest open https://kr.pinterest.com/
 
 set -euo pipefail
 
