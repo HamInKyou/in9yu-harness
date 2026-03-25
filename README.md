@@ -1,6 +1,6 @@
 # in9yu-harness
 
-Claude Code 스킬과 에이전트를 중앙 관리하는 하네스 레포. `projects/` 하위에 클론한 다른 레포들이 이를 공유해서 사용한다.
+Claude Code 스킬과 에이전트를 중앙 관리하는 하네스 레포. 다른 프로젝트 레포에서 `--add-dir`로 하네스를 주입하여 스킬과 설정을 공유한다.
 
 ## 구조
 
@@ -23,13 +23,21 @@ in9yu-harness/
 │   └── setup.sh            # 환경 셋업 스크립트
 ├── docs/                   # 가이드 문서
 │   └── project-management-workflow.md
-├── projects/               # 외부 레포 클론 위치 (.gitignore 처리)
 └── README.md
 ```
 
 ## 작동 원리
 
-Claude Code는 현재 디렉토리에서 루트까지 상위로 `.claude/`를 탐색한다. `projects/repo-a/`에서 실행해도 `in9yu-harness/.claude/skills/`와 `agents/`를 자동으로 발견하므로 별도 설정이 필요 없다.
+작업 레포에서 Claude Code를 실행할 때 `--add-dir`로 하네스 경로를 추가하면, 하네스의 `.claude/skills/`와 `agents/`를 인식한다. 작업 레포가 주 컨텍스트(파일 수정, git 등)이고, 하네스는 스킬/설정 공급자 역할을 한다.
+
+```bash
+# 작업 레포에서 하네스를 주입하여 Claude Code 실행
+cd ~/Projects/my-app
+claude --add-dir ~/Teams/in9yu-harness
+
+# 매번 입력이 번거로우면 alias 설정
+alias harness-claude='claude --add-dir ~/Teams/in9yu-harness'
+```
 
 ## 환경 설정
 

@@ -3,7 +3,3 @@
 
 # oh-my-claudecode runtime state
 .omc/
-
-# Cloned repos in projects/ (keep directory via .gitkeep)
-projects/*
-!projects/.gitkeep
