@@ -197,10 +197,13 @@ agent-browser --session-name pinterest screenshot --annotate
 
 매칭 판정을 받은 핀만 저장합니다. 각 핀에 대해:
 
+**중요: 핀이 화면 밖에 있으면 클릭이 안 될 수 있음. 필요 시 `scroll down 600`으로 핀을 뷰포트에 노출시킨 후 클릭.**
+
 ```bash
 # 1. 핀 클릭 (상세 페이지 진입) — 스냅샷에서 동적으로 ref 추출
 agent-browser --session-name pinterest snapshot -i
 # grep으로 N번째 "핀 페이지" 링크의 ref 추출
+# (핀이 화면 밖이면 먼저 scroll down 600 후 re-snapshot)
 agent-browser --session-name pinterest click @eN
 agent-browser --session-name pinterest wait --load networkidle
 agent-browser --session-name pinterest wait 1000
@@ -210,10 +213,14 @@ agent-browser --session-name pinterest snapshot -i
 # grep "저장할 보드 선택" → ref 추출
 agent-browser --session-name pinterest click @eN  # 보드 선택 드롭다운
 
-# 3. 대상 보드 선택 — 보드 목록에서 대상 보드의 "저장" 버튼 ref 추출
+# 3. 보드 검색으로 대상 보드 찾기 (핵심 개선: 검색 활용)
 agent-browser --session-name pinterest wait 1000
 agent-browser --session-name pinterest snapshot -i
-# grep "보드이름" 다음 줄의 "저장" ref 추출
+# "보드에서 검색" searchbox의 ref 추출
+agent-browser --session-name pinterest fill @eN "보드이름키워드"  # 보드 이름의 일부를 검색
+agent-browser --session-name pinterest wait 1000
+agent-browser --session-name pinterest snapshot -i
+# 검색 결과에서 대상 보드의 "저장" 버튼 ref 추출
 agent-browser --session-name pinterest click @eN  # 보드 저장 버튼
 agent-browser --session-name pinterest wait 1500
 
@@ -222,6 +229,8 @@ agent-browser --session-name pinterest back
 agent-browser --session-name pinterest wait --load networkidle
 agent-browser --session-name pinterest wait 1500
 ```
+
+> **보드 검색 팁**: 드롭다운에 `searchbox "보드에서 검색"`이 있음. 보드 이름의 핵심 키워드 1~2단어를 입력하면 보드를 빠르게 찾을 수 있음. 보드 목록을 스크롤할 필요 없음.
 
 **3-C: 추가 탐색 (핀이 부족할 경우)**
 
