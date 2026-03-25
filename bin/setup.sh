@@ -57,6 +57,41 @@ else
   fi
 fi
 
+# agent-browser 설치 확인
+echo ""
+if command -v agent-browser &>/dev/null; then
+  echo "[OK] agent-browser 감지됨"
+else
+  echo "agent-browser가 설치되어 있지 않습니다."
+  echo ""
+  echo "  agent-browser는 다음 스킬을 사용하기 위해 필요합니다:"
+  echo "    - agent-browser : 브라우저 자동화 (웹 탐색, 폼 입력, 스크린샷 등)"
+  echo ""
+  read -rp "agent-browser를 설치하시겠습니까? (y/N): " install_ab
+  if [[ "${install_ab}" =~ ^[Yy]$ ]]; then
+    if command -v brew &>/dev/null; then
+      brew install agent-browser
+      echo "[OK] agent-browser 설치 완료"
+    elif command -v npm &>/dev/null; then
+      npm install -g agent-browser
+      echo "[OK] agent-browser 설치 완료"
+    else
+      echo "ERROR: Homebrew 또는 npm이 설치되어 있지 않습니다."
+      echo "  → https://brew.sh/ 에서 Homebrew를 먼저 설치하거나,"
+      echo "  → https://agent-browser.dev/installation 에서 직접 설치하세요."
+    fi
+    # Chrome 다운로드 (첫 실행 시 필요)
+    if command -v agent-browser &>/dev/null; then
+      echo "Chrome 다운로드 중..."
+      agent-browser install
+      echo "[OK] Chrome 설치 완료"
+    fi
+  else
+    echo "[SKIP] agent-browser 설치를 건너뜁니다. 나중에 수동 설치 가능합니다."
+    echo "  → brew install agent-browser (macOS) 또는 npm install -g agent-browser"
+  fi
+fi
+
 # 마켓플레이스 등록
 echo ""
 echo "--- 마켓플레이스 등록 ---"
