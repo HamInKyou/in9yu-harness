@@ -55,10 +55,24 @@ alias harness-claude='claude --add-dir ~/Teams/in9yu-harness'
 - Claude Code 설치 여부 확인
 - GitHub CLI 설치/인증/`project` 스코프 확인
 - [agent-browser](https://agent-browser.dev) 설치 및 Chrome 다운로드
-- [oh-my-claudecode (OMC)](https://github.com/Yeachan-Heo/oh-my-claudecode) 플러그인 설치
-- [pm-skills](https://github.com/phuryn/pm-skills) 마켓플레이스 등록 및 8개 플러그인 설치
 
 스크립트 실행 후 Claude Code에서 `/omc-setup`을 실행하여 OMC를 구성한다.
+
+### 플러그인 설치
+
+플러그인(OMC, pm-skills)은 `.claude/settings.json`에 선언되어 있어 **저장소를 trust하면 자동으로 설치**된다. 별도의 설치 명령이 필요 없다.
+
+만약 새로운 플러그인을 추가해야 할 경우, **프로젝트 스코프**로 설치하여 설정이 `.claude/settings.json`에 반영되도록 한다:
+
+```bash
+# 마켓플레이스 등록 (최초 1회)
+/plugin marketplace add <owner>/<repository>
+
+# 플러그인 프로젝트 스코프 설치
+/plugin install <plugin-name>@<marketplace> --scope project
+```
+
+`--scope project`로 설치하면 `.claude/settings.json`에 자동 추가되어, 이후 다른 환경에서는 trust만으로 설치된다.
 
 ---
 
