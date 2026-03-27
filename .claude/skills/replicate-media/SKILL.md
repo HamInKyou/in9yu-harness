@@ -5,7 +5,6 @@ description: >
   Use when: replicate, 이미지 생성, 이미지 만들어, 그림 그려, 사진 생성, image generate, 동영상 생성, 영상 만들어, 에셋 생성, asset generate
 argument-hint: "[자연어 프롬프트] [--dir 저장경로] [--model 모델ID] [--count N]"
 allowed-tools: Bash(curl *), Bash(mkdir *), Read, Write
-disable-model-invocation: true
 ---
 
 # Replicate Media Generator
@@ -194,9 +193,11 @@ curl -s -L \
 
 ### 7. 주의사항
 
-- **비용**: Replicate API는 유료입니다. 생성 전 모델별 예상 비용을 안내합니다.
-  - flux-2-pro: ~$0.05/image
-  - video-01: ~$0.50/video
+- **비용**: Replicate API는 유료입니다. 생성 전 모델별 예상 비용을 안내합니다. 상세 가격은 [models-reference.md](models-reference.md) 참조.
 - **프롬프트 언어**: Replicate 모델은 영어 프롬프트에 최적화되어 있으므로, 한국어 입력은 자동 번역합니다.
 - **파일 크기**: 생성된 파일이 큰 경우 (특히 동영상) 디스크 공간을 확인합니다.
 - **NSFW**: 부적절한 콘텐츠 생성 요청은 거부합니다.
+
+## 참고 문서
+
+- [models-reference.md](models-reference.md) — 지원 모델 전체 목록, 가격, 용도별 추천
