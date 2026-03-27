@@ -4,21 +4,15 @@ description: >
   Replicate API를 활용한 이미지/동영상 에셋 생성 스킬. 자연어 프롬프트로 에셋을 생성하고 로컬 디렉토리에 자동 저장합니다.
   Use when: replicate, 이미지 생성, 이미지 만들어, 그림 그려, 사진 생성, image generate, 동영상 생성, 영상 만들어, 에셋 생성, asset generate
 argument-hint: "[자연어 프롬프트] [--dir 저장경로] [--model 모델ID] [--count N]"
-allowed-tools: Bash(curl:*), Bash(mkdir:*), Read, Write
-user-invocable: true
+allowed-tools: Bash(curl *), Bash(mkdir *), Read, Write
+disable-model-invocation: true
 ---
 
 # Replicate Media Generator
 
-자연어 프롬프트를 받아 Replicate API로 이미지/동영상을 생성하고 로컬에 저장합니다.
+다음 요청을 처리합니다: $ARGUMENTS
 
-**예시 입력:**
-- `"cyberpunk city 이미지 3장 만들어서 references에 저장"` (이미지 복수 생성)
-- `"로그인 페이지 배경 이미지 생성해줘"` (이미지 단일 생성)
-- `"a cat playing piano"` (영어 프롬프트)
-
-## 사용법
-
+**예시 호출:**
 ```
 /replicate-media cyberpunk city at night         # 이미지 1장 생성 (기본)
 /replicate-media 우주 고양이 --count 3            # 3장 생성
@@ -30,7 +24,7 @@ user-invocable: true
 
 ### 1. 인자 파싱
 
-사용자 입력에서 다음을 추출합니다:
+`$ARGUMENTS`에서 다음을 추출합니다:
 
 | 인자 | 기본값 | 설명 |
 |------|--------|------|
