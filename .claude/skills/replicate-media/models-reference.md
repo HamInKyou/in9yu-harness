@@ -16,6 +16,7 @@
 | 모델 ID | 가격 | 특징 | 추천 용도 |
 |---------|------|------|----------|
 | `luma/photon` | ~$0.015/img | 초고해상도 출력 | 사진 스타일 이미지 |
+| `google/nano-banana-pro` | ~$0.02/img | Gemini 3 Pro 기반, 14개 이미지 블렌딩, 다국어 텍스트, 4K, Google Search 연동 (18M+ runs) | 멀티모달 합성, 텍스트 렌더링 |
 | `google/imagen-4-fast` | ~$0.02/img | Google 속도 최적화 | 빠른 반복 + 품질 균형 |
 | `black-forest-labs/flux-2-pro` | ~$0.03/1MP | 메가픽셀 과금, JSON 프롬프팅 | **기본 추천 모델** |
 | `bytedance/seedream-4` | $0.03/img | 4K 해상도, 스타일 전이 (30M+ runs) | 범용 고품질 |
@@ -57,6 +58,7 @@
 | 시네마틱 | `seedream-4.5` | 영화적 미학 |
 | 벡터/SVG | `recraft-v4-svg` | 네이티브 SVG 출력 |
 | 대량 생성 | `sana-sprint-1.6b` | $0.002, 초저가 |
+| 멀티모달 합성 | `nano-banana-pro` | Gemini 3 Pro 기반, 14개 이미지 블렌딩, Google Search 연동 |
 | 최고 품질 | `flux-2-max` | 최고 해상도 + 참조 이미지 |
 
 ## 참고
