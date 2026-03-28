@@ -1,0 +1,4 @@
+experiment	score	max_score	pass_rate	status	description
+0	45	60	75.0%	baseline	original skill — no changes
+1	51	60	85.0%	keep	slug를 번역된 영어 프롬프트에서 추출하도록 명시 + 한국어 slug 예시 3개 추가
+2	60	60	100.0%	keep	download 경로와 summary가 --dir/--model/--count 플래그를 반영하도록 수정

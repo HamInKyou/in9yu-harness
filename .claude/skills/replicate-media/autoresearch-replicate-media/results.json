@@ -1,0 +1,18 @@
+{
+  "skill_name": "replicate-media",
+  "status": "complete",
+  "current_experiment": 2,
+  "baseline_score": 75.0,
+  "best_score": 100.0,
+  "experiments": [
+    {"id": 0, "score": 45, "max_score": 60, "pass_rate": 75.0, "status": "baseline", "description": "original skill — no changes"},
+    {"id": 1, "score": 51, "max_score": 60, "pass_rate": 85.0, "status": "keep", "description": "slug를 번역된 영어 프롬프트에서 추출하도록 명시 + 한국어 slug 예시 3개 추가"},
+    {"id": 2, "score": 60, "max_score": 60, "pass_rate": 100.0, "status": "keep", "description": "download 경로와 summary 템플릿이 --dir/--model/--count 플래그를 반영하도록 수정"}
+  ],
+  "eval_breakdown": [
+    {"name": "File Save", "pass_count": 15, "total": 15},
+    {"name": "Filename Convention", "pass_count": 15, "total": 15},
+    {"name": "Summary Output", "pass_count": 15, "total": 15},
+    {"name": "Korean Translation", "pass_count": 15, "total": 15}
+  ]
+}
