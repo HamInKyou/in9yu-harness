@@ -1,5 +1,9 @@
 # JetBrains IDE
 .idea/
 
+# Environment variables
+.env
+.claude/settings.local.json
+
 # oh-my-claudecode runtime state
 .omc/
