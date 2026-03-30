@@ -4,7 +4,8 @@ description: >
   Replicate API를 활용한 이미지/동영상 에셋 생성 스킬. 자연어 프롬프트로 에셋을 생성하고 로컬 디렉토리에 자동 저장합니다.
   Use when: replicate, 이미지 생성, 이미지 만들어, 그림 그려, 사진 생성, image generate, 동영상 생성, 영상 만들어, 에셋 생성, asset generate
 argument-hint: "[자연어 프롬프트] [--dir 저장경로] [--model 모델ID] [--count N]"
-allowed-tools: Bash(curl *), Bash(mkdir *), Read, Write
+allowed-tools: Bash(curl *), Bash(mkdir *), Read
+user-invocable: true
 ---
 
 # Replicate Media Generator
@@ -79,16 +80,29 @@ fi
 → 프롬프트: "Cyberpunk city nightscape with neon lights, highly detailed, cinematic lighting"
 ```
 
+#### Step 2.5: 비용 확인 (--count >= 3일 때)
+
+`--count`가 3 이상이면, API 호출 전에 예상 비용을 계산하고 사용자에게 확인을 요청합니다:
+
+```
+⚠️ 예상 비용 안내
+- 모델: black-forest-labs/flux-2-pro (~$0.03/장)
+- 생성 수: 5장
+- 예상 총 비용: ~$0.15
+계속 진행할까요?
+```
+
+사용자가 확인하면 진행하고, 거부하면 중단합니다. `--count`가 1~2일 때는 확인 없이 바로 진행합니다.
+
 #### Step 3: Replicate API 호출 — Prediction 생성
 
 ```bash
-# 이미지 생성 (flux-2-pro) — Prefer: wait로 동기 호출 (최대 60초 대기)
-curl -s -X POST "https://api.replicate.com/v1/predictions" \
-  -H "Authorization: Bearer $REPLICATE_API_TOKEN" \
+# 이미지 생성 (flux-2-pro) — 모델별 엔드포인트 + Prefer: wait 동기 호출 (최대 60초 대기)
+curl -s -X POST "https://api.replicate.com/v1/models/black-forest-labs/flux-2-pro/predictions" \
+  --config <(echo "header = \"Authorization: Bearer $REPLICATE_API_TOKEN\"") \
   -H "Content-Type: application/json" \
   -H "Prefer: wait" \
   -d '{
-    "version": "black-forest-labs/flux-2-pro",
     "input": {
       "prompt": "생성 프롬프트",
       "aspect_ratio": "1:1",
@@ -98,6 +112,8 @@ curl -s -X POST "https://api.replicate.com/v1/predictions" \
     }
   }'
 ```
+
+> **보안 참고**: `--config <(...)` 방식은 Authorization 헤더가 `ps aux` 등 프로세스 목록에 노출되는 것을 방지합니다. `-H` 인라인 방식은 사용하지 마세요.
 
 **`Prefer: wait` 헤더**: prediction이 완료될 때까지 동기 대기 (최대 60초). flux-2-pro는 평균 ~20초로 이 방식 사용 가능.
 60초 내 완료되지 않으면 polling으로 전환합니다.
@@ -111,7 +127,7 @@ curl -s -X POST "https://api.replicate.com/v1/predictions" \
 ```bash
 # prediction 상태 확인
 curl -s "https://api.replicate.com/v1/predictions/{prediction_id}" \
-  -H "Authorization: Bearer $REPLICATE_API_TOKEN"
+  --config <(echo "header = \"Authorization: Bearer $REPLICATE_API_TOKEN\"")
 ```
 
 상태값:
@@ -121,10 +137,9 @@ curl -s "https://api.replicate.com/v1/predictions/{prediction_id}" \
 - `failed` → 실패, `error` 필드 확인
 - `canceled` → 취소됨
 
-Polling 전략:
-- 5초 간격으로 상태 확인
-- 이미지: 최대 2분 timeout
-- 동영상: 최대 10분 timeout
+Polling 전략 (지수 백오프):
+- 이미지: 5초 → 10초 → 15초 간격, 최대 2분 timeout
+- 동영상: 10초 → 20초 → 30초 간격, 최대 10분 timeout
 - 사용자에게 진행 상태 표시 ("생성 중... (30초 경과)")
 
 #### Step 5: 결과 다운로드 & 저장
@@ -135,7 +150,7 @@ mkdir -p {저장_디렉토리}
 
 # 파일 다운로드 (Authorization 헤더 필요)
 curl -s -L \
-  -H "Authorization: Bearer $REPLICATE_API_TOKEN" \
+  --config <(echo "header = \"Authorization: Bearer $REPLICATE_API_TOKEN\"") \
   -o "{저장_디렉토리}/{filename}" "{output_url}"
 ```
 
